@@ -1,0 +1,22 @@
+#!/bin/sh -x
+# .Oo DERRICK - A Simple Network Stream Recorder
+# Copyright (C) 2011-2012 Konrad Rieck (konrad@mlsec.org)
+
+# Commands for autotools
+ACLOCAL=aclocal
+AUTOHEADER=autoheader
+AUTOMAKE=automake
+AUTOCONF=autoconf
+LIBTOOLIZE=glibtoolize
+
+# Remove auto-generated m4 files
+rm -f aclocal.m4
+rm -f m4/lib* m4/lt*
+mkdir m4
+
+# Generate environment
+$ACLOCAL -I m4 && \
+$LIBTOOLIZE --force --copy && \
+$AUTOHEADER -f  && \
+$AUTOMAKE --foreign --add-missing --copy && \
+$AUTOCONF

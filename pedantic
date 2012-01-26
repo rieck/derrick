@@ -1,0 +1,7 @@
+#!/bin/sh
+# .Oo DERRICK - A Simple Network Stream Recorder
+# Copyright (C) 2011-2012 Konrad Rieck (konrad@mlsec.org)
+
+# My favorite script for watching compiler warning... 
+make clean > /dev/null
+make -j4 all > /dev/null
