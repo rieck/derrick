@@ -11,20 +11,22 @@ B<derrick> [B<-vVh>] [B<-p> I<pkts>] [B<-P> I<pkts>] [B<-b> I<bytes>] [B<-B> I<b
 
 =head1 DESCRIPTION
 
-B<derrick> is a simple tool for recording data streams of TCP and UDP traffic.
-It shares similarities with other network recorders, such as B<tcpflow> and
-B<wireshark>, where it is more advanced than the first and clearly inferior to
-the latter.
+B<derrick> is a simple tool for recording data streams of TCP and UDP
+traffic.  It shares similarities with other network recorders, such as
+B<tcpflow> and B<wireshark>, where it is more advanced than the first and
+clearly inferior to the latter.
+
 
 B<derrick> has been specifically designed to monitor application-layer
-communication. In contrast to other tools the application data is logged in an
-escaped ASCII format. Common UNIX tools, such as B<grep>, B<sed> & B<awk>, can
-be directly applied. Even replay of recorded communication is straight forward
-using B<netcat>.
+communication.  In contrast to other tools the application data is logged in
+a line-based ASCII format.  Common UNIX tools, such as B<grep>, B<sed> &
+B<awk>, can be directly applied.  Even replay of recorded communication is
+straight forward using B<netcat>.
 
-B<derrick> supports on-the-fly compression and rotation of log files. Payloads
-of TCP sessions are re-assembled using B<libnids> and can be merged or truncated. 
-UDP payloads are logged as-is. Details of lower network layers are omitted.
+B<derrick> supports on-the-fly compression and rotation of log files.
+Payloads of TCP sessions are re-assembled using B<libnids> and can be merged
+or truncated.  UDP payloads are logged as-is.  Details of lower network
+layers are omitted.
 
 =head1 COPYRIGHT
 

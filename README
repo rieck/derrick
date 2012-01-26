@@ -8,14 +8,15 @@ wireshark, where it is more advanced than the first and clearly inferior to
 the latter.
 
 Derrick has been specifically designed to monitor application-layer
-communication. In contrast to other tools the application data is logged in
-an escaped ASCII format. Common UNIX tools, such as grep, sed & awk, can be
-directly applied. Even replay of recorded communication is straight forward
-using netcat.
+communication.  In contrast to other tools the application data is logged in
+a line-based ASCII format.  Common UNIX tools, such as grep, sed & awk, can
+be directly applied.  Even replay of recorded communication is straight
+forward using netcat.
 
-Derrick> supports on-the-fly compression and rotation of log files. Payloads
-of TCP sessions are re-assembled using Libnids and can be merged or truncated. 
-UDP payloads are logged as-is. Details of lower network layers are omitted.
+Derrick supports on-the-fly compression and rotation of log files.  The
+payloads of TCP sessions are re-assembled using Libnids and can be merged or
+truncated.  UDP payloads are logged as-is.  Details of lower network layers
+are omitted.
 
 A shortend example log of Derrick looks like this:
 
