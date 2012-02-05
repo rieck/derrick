@@ -37,7 +37,6 @@ Dependencies
 
 Compilation & Installation
 --
-
   From GIT repository first run
 
   $ ./bootstrap
