@@ -49,6 +49,8 @@ Compilation & Installation
   $ make check
   $ make install
 
+Configuration Options
+--
   --prefix=PATH           Set directory prefix for installation
 
   By default Derrick is installed into /usr/local. If you prefer a different
