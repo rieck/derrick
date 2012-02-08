@@ -30,7 +30,7 @@ static char *pcap_filter = PCAP_FILTER;
  */
 static void print_usage(void)
 {
-    printf("Usage: derrick [-mvVh] [-i iface] [-r file] [-f filter] [-l file]\n"
+    printf("Usage: derrick [-mvVh] [-i interface] [-r file] [-f expression] [-l file]\n"
 	   "               [-b bytes] [-t lines]\n"
            "Options:\n"
 	   "  -i: Network interface to listen on.\n"

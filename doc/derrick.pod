@@ -6,27 +6,84 @@ B<derrick> -- a simple network stream recorder
 
 =head1 SYNOPSIS
 
-B<derrick> [B<-vVh>] [B<-p> I<pkts>] [B<-P> I<pkts>] [B<-b> I<bytes>] [B<-B> I<bytes>] [B<-i> I<iface>]
-        [B<-r> I<file>] [B<-w> I<file>] [B<-f> I<expression>] I<logfile>
+B<derrick> [B<-mvVh>] [B<-i> I<interface>] [B<-r> I<file>] [B<-f> I<expression>] [B<-l> I<file>] [B<-b> I<bytes>] [B<-t> I<lines>]
 
 =head1 DESCRIPTION
 
 B<derrick> is a simple tool for recording data streams of TCP and UDP
 traffic.  It shares similarities with other network recorders, such as
-B<tcpflow> and B<wireshark>, where it is more advanced than the first and
+tcpflow and wireshark, where it is more advanced than the first and
 clearly inferior to the latter.
-
 
 B<derrick> has been specifically designed to monitor application-layer
 communication.  In contrast to other tools the application data is logged in
-a line-based ASCII format.  Common UNIX tools, such as B<grep>, B<sed> &
-B<awk>, can be directly applied.  Even replay of recorded communication is
-straight forward using B<netcat>.
+a line-based ASCII format.  Common UNIX tools, such as grep, sed &
+awk, can be directly applied.  Even replay of recorded communication is
+straight forward using netcat.
 
 B<derrick> supports on-the-fly compression and rotation of log files.
-Payloads of TCP sessions are re-assembled using B<libnids> and can be merged
+Payloads of TCP sessions are re-assembled using libnids and can be merged
 or truncated.  UDP payloads are logged as-is.  Details of lower network
 layers are omitted.
+
+=head1 OPTIONS
+
+B<derrick> supports the following command-line I<options> which
+can be used to control the recording of network traffic.
+
+=over 14
+
+=item B<-i> I<interface>
+
+Record network traffic from this I<interface>. On Linux systems with 2.2 or
+later kernels, an interface argument of "any" can be used to capture packets
+from all interfaces.
+
+=item B<-r> I<file>
+
+Read network traffic from a dump I<file> in pcap format. Dump files can be
+created using B<tcpdump>.
+
+=item B<-f> I<expression>
+
+Filter network traffic using a filter I<expression>. Only packets that
+match the expression will be recorded. Consult the man page of B<tcpdump> for
+a description of filter expressions.
+
+=item B<-l> I<file>
+
+Write output to a compressed log I<file> instead of stdout. This option can 
+be used when B<derrick> runs in the background. The log file will be rotated
+if a certain number of lines have been logged, see B<-t>.
+
+=item B<-b> I<bytes>
+
+Record only the first I<bytes> of each TCP stream. The number of bytes is
+computed from incoming and outgoing TCP payloads.
+
+=item B<-m> 
+
+Log TCP payloads with the same direction to a single line. This options
+comes handy if protocol messages are often split over multiple payloads.
+
+=item B<-t> I<lines>
+
+Rotate the log file after the given number of I<lines>.
+
+=item B<-v>
+
+Increase the verbosity of B<derrick> during recording.
+
+=item B<-h>
+
+Print a brief help screen.
+
+=item B<-V>
+
+Print a version and copyright string.
+
+=back
+
 
 =head1 COPYRIGHT
 
