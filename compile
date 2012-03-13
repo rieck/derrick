@@ -20,7 +20,7 @@ case $arg in
         ./configure --prefix=$HOME/user
         ;;       
     # Konrad's sluggish laptop
-    twoface*|ltrieck*)
+    scarecrow*|twoface*|ltrieck*)
         echo "# Configuration: Twoface"
         CC="gcc" \
         CFLAGS="-DDEBUG -g -pedantic -pipe -O3" \
