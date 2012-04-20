@@ -16,55 +16,112 @@ tcpflow and wireshark, where it is more advanced than the first and
 clearly inferior to the latter.
 
 B<derrick> has been specifically designed to monitor application-layer
-communication.  In contrast to other tools the application data is logged in
-a line-based ASCII format.  Common UNIX tools, such as grep, sed &
-awk, can be directly applied.  Even replay of recorded communication is
-straight forward using netcat.
+communication.  In contrast to other tools the application data is
+logged in a line-based text format.  Common UNIX tools, such as grep,
+sed & awk, can be directly applied.  Even replay of recorded
+communication is straight forward using netcat.
 
 B<derrick> supports on-the-fly compression and rotation of log files.
-Payloads of TCP sessions are re-assembled using libnids and can be merged
-or truncated.  UDP payloads are logged as-is.  Details of lower network
-layers are omitted.
+Payloads of TCP sessions are re-assembled using libnids and can be
+merged or truncated.  UDP payloads are logged as-is.  Details of lower
+network layers are omitted.
+
+=head1 OUTPUT FORMAT
+
+B<derrick> outputs the monitored network traffic in a line-based text
+format, where each line corresponds to one recorded TCP or UDP
+payload. Note that TCP payloads are re-assembled and thus not
+necessary match the corresponding TCP datagrams.
+
+Each line of the output has the following format: 
+
+   <TIME> <FLAG> <SRC> <DST> <PAYLOAD>
+
+The different fields of the output are defined as follows
+
+=over 10
+
+=item <TIME>
+
+This field specifies the time at which the payload has been
+monitored. The time is given as standard UNIX time and encoded as a
+floating-point number of seconds.
+
+=item <FLAG>
+
+This field indicates the type of payload that has been recorded. B<U>
+refers to a UDP payload and B<T> refers to a TCP payload. Additionaly,
+the beginning and end of TCP streams are marked by B<T+> and B<T->,
+respectively.
+
+=item <SRC>
+
+This field specifies the source of the payload. It is a tuple of an IP address and a port number in form of B<IP:PORT>.
+
+=item <DST>
+
+This field specifies the destination of the payload. It is a tuple of
+an IP address and a port number in form of B<IP:PORT>.
+
+=item <PAYLOAD>
+
+The last field is the monitored payload. Non-printable characters are
+escaped using standard URI encoding. Each non-printable characters is
+replaced by %XX where XX is the character's hexadecimal ASCII number.
+
+=back
+
+An example output of B<derrick> looks as follows
+
+  05.80 T 10.100.163.103:58445 91.198.174.233:80 GET /index.html ...
+
+The line shows a TCP payload recorded at time 05.80, that is, 5.8
+seconds after new year's eve of 1970 ;). The payload is directed to
+port 80 (HTTP) and shows the beginning of a typical HTTP GET request.
+Note that whitespaces are not escaped in the payload and thus each
+line may seemingly have more than 5 fields. However, starting from the
+5th field all following white-spaces are part of the payload.
 
 =head1 OPTIONS
 
-B<derrick> supports the following command-line I<options> which
-can be used to control the recording of network traffic.
+B<derrick> supports the following command-line I<options> which can be
+used to control the recording of network traffic.
 
 =over 14
 
 =item B<-i> I<interface>
 
-Record network traffic from this I<interface>. On Linux systems with 2.2 or
-later kernels, an interface argument of "any" can be used to capture packets
-from all interfaces.
+Record network traffic from this I<interface>. On Linux systems with
+2.2 or later kernels, an interface argument of "any" can be used to
+capture packets from all interfaces.
 
 =item B<-r> I<file>
 
-Read network traffic from a dump I<file> in pcap format. Dump files can be
-created using B<tcpdump>.
+Read network traffic from a dump I<file> in pcap format. Dump files
+can be created using B<tcpdump>.
 
 =item B<-f> I<expression>
 
 Filter network traffic using a filter I<expression>. Only packets that
-match the expression will be recorded. Consult the man page of B<tcpdump> for
-a description of filter expressions.
+match the expression will be recorded. Consult the man page of
+B<tcpdump> for a description of filter expressions.
 
 =item B<-l> I<file>
 
-Write output to a compressed log I<file> instead of stdout. This option can 
-be used when B<derrick> runs in the background. The log file will be rotated
-if a certain number of lines have been logged, see B<-t>.
+Write output to a compressed log I<file> instead of stdout. This
+option can be used when B<derrick> runs in the background. The log
+file will be rotated if a certain number of lines have been logged,
+see B<-t>.
 
 =item B<-b> I<bytes>
 
-Record only the first I<bytes> of each TCP stream. The number of bytes is
-computed from incoming and outgoing TCP payloads.
+Record only the first I<bytes> of each TCP stream. The number of bytes
+is computed from incoming and outgoing TCP payloads.
 
 =item B<-m> 
 
-Log TCP payloads with the same direction to a single line. This options
-comes handy if protocol messages are often split over multiple payloads.
+Merge consecutive TCP payloads in the same direction. This options
+comes handy if protocol messages are split over multiple TCP payloads.
 
 =item B<-t> I<lines>
 
