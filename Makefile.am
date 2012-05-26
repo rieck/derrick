@@ -3,7 +3,7 @@
     
 AUTOMAKE_OPTIONS = foreign
 SUBDIRS = src doc .
-EXTRA_DIST = README COPYING bootstrap pedantic
+EXTRA_DIST = README.md COPYING bootstrap pedantic
 ACLOCAL_AMFLAGS = -I m4
 
 clean-local:
