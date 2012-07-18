@@ -3,6 +3,7 @@
 # (c) 2012 Konrad Rieck
 
 import sys
+import gzip
 
 # Simple configuration
 ftp_port = "21"
@@ -13,7 +14,7 @@ if len(sys.argv) != 2:
     print 'usage: %s: derrick-file' % sys.argv[0]
     sys.exit(0)
     
-for line in open(sys.argv[1]).readlines():
+for line in gzip.open(sys.argv[1]).readlines():
     tokens = line.split(' ')
 
     # Extract some fields
