@@ -2,7 +2,7 @@
 # Copyright (C) 2011-2012 Konrad Rieck (konrad@mlsec.org)
     
 AUTOMAKE_OPTIONS = foreign
-SUBDIRS = src doc .
+SUBDIRS = src doc contrib .
 EXTRA_DIST = README.md COPYING bootstrap pedantic
 ACLOCAL_AMFLAGS = -I m4
 
