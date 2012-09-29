@@ -18,7 +18,7 @@ payloads of TCP sessions are re-assembled using Libnids and can be merged or
 truncated.  UDP payloads are logged as-is.  Details of lower network layers
 are omitted.
 
-A shortend example log of Derrick looks like this:
+A shortened example log of Derrick looks like this:
 
     05.699 T+ 10.100.163.103:58443 91.198.174.233:80 
     05.832 T 10.100.163.103:58445 91.198.174.233:80 GET /en.wikipedia...%0d%0a
@@ -60,7 +60,7 @@ location, use this option to select an installation directory.
     --with-libnet=DIR       Installation path of libnet 
     --with-libnids=DIR      Installation path of libnids 
 
-If the configure scripte does not automatically detect the libraries and
+If the configure script does not automatically detect the libraries and
 their headers, these options can be used to provide the respective
 installation paths.
 
