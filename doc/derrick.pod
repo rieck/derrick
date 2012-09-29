@@ -50,7 +50,7 @@ floating-point number of seconds.
 =item <FLAG>
 
 This field indicates the type of payload that has been recorded. B<U>
-refers to a UDP payload and B<T> refers to a TCP payload. Additionaly,
+refers to a UDP payload and B<T> refers to a TCP payload. Additionally,
 the beginning and end of TCP streams are marked by B<T+> and B<T->,
 respectively.
 
