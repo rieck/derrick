@@ -144,6 +144,8 @@ Print a version and copyright string.
 
 =head1 COPYRIGHT
 
+Copyright (c) 2011-2012 Konrad Rieck (konrad@mlsec.org)
+
 Derrick is licensed under the new BSD License. See the file F<COPYING>
 in the source distribution for more information.
 
