@@ -1,4 +1,4 @@
-AC_INIT([derrick], [0.2], [konrad@mlsec.org])
+AC_INIT([derrick], [0.3], [konrad@mlsec.org])
 AM_INIT_AUTOMAKE
 AC_PREFIX_DEFAULT("/usr/local")
 AM_CONFIG_HEADER([config.h])
