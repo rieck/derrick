@@ -3,9 +3,14 @@
     
 AUTOMAKE_OPTIONS = foreign
 SUBDIRS = src doc contrib .
-EXTRA_DIST = README.md COPYING bootstrap pedantic
+EXTRA_DIST = README.md COPYING CHANGES bootstrap pedantic
 ACLOCAL_AMFLAGS = -I m4
 
 clean-local:
 	rm -f *~
+
+CHANGES:
+	$(srcdir)/git2changes.py                
         
+distclean-local:
+	rm -f CHANGES        

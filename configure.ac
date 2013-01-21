@@ -89,7 +89,7 @@ fi
 AC_CHECK_HEADERS([getopt.h string.h strings.h stdarg.h errno.h])
 AC_CHECK_HEADERS([uthash.h uthash/uthash.h], HEADER_UTHASH="yes")
 
-AC_SUBST([INCLUDES])
+AC_SUBST([AM_CPPFLAGS])
 AC_CONFIG_FILES([ 
    Makefile \
    src/Makefile \
