@@ -5,7 +5,7 @@
  * --
  * Compress log format
  */
- 
+
 #include "config.h"
 #include "common.h"
 #include "utils.h"
@@ -27,12 +27,12 @@ static unsigned long rotation = 0;
 void log_open(char *file)
 {
     if (!file)
-	return;
-    
+        return;
+
     gzfile = strdup(file);;
     gz = gzopen(file, "wb");
-    if (!gz) 
-	error("Could not create file %s", file);    
+    if (!gz)
+        error("Could not create file %s", file);
 
     lines = 0;
     rotation = 0;
@@ -45,49 +45,50 @@ void log_open(char *file)
  * @param addr Addresses
  * @param buf Payload data
  * @param len Payload length
- */ 
-void log_write(double time, char *flags, struct tuple4 addr, char *buf, int len)
+ */
+void log_write(double time, char *flags, struct tuple4 addr, char *buf,
+               int len)
 {
     char *p = payl_to_str(buf, len);
 
     if (!gz) {
-	printf("%.3f %s %s %s\n", time, flags, addr_to_str(addr), p);
+        printf("%.3f %s %s %s\n", time, flags, addr_to_str(addr), p);
     } else {
-        gzprintf(gz, "%.3f %s %s %s\n", time, flags, addr_to_str(addr), p);    
-	
-	/* Sync output stream */
-	if (lines++ % SYNC_INTERVAL == 0)
-	    gzflush(gz, Z_SYNC_FLUSH);
-	
-	/* Check for log rotation */
-	if (lines >= max_log_lines) {
-	    rotation++;	    	    
-	    lines = 0;
-	    
-	    /* Create backup file name */
-	    int len = strlen(gzfile) + 10;
-	    char *backup = malloc(len);
-	    snprintf(backup, len, "%s.%lu", gzfile, rotation);
-	    
-	    /* Switch files */
-	    gzclose(gz);
-	    rename(gzfile, backup);
-	    gz = gzopen(gzfile, "wb");
-	}
+        gzprintf(gz, "%.3f %s %s %s\n", time, flags, addr_to_str(addr), p);
+
+        /* Sync output stream */
+        if (lines++ % SYNC_INTERVAL == 0)
+            gzflush(gz, Z_SYNC_FLUSH);
+
+        /* Check for log rotation */
+        if (lines >= max_log_lines) {
+            rotation++;
+            lines = 0;
+
+            /* Create backup file name */
+            int len = strlen(gzfile) + 10;
+            char *backup = malloc(len);
+            snprintf(backup, len, "%s.%lu", gzfile, rotation);
+
+            /* Switch files */
+            gzclose(gz);
+            rename(gzfile, backup);
+            gz = gzopen(gzfile, "wb");
+        }
     }
-	
+
     free(p);
 }
-    
+
 /**
  * Close an open file
  * @param z Open file
- */ 
+ */
 void log_close()
 {
     if (gzfile)
-	free(gzfile);    
+        free(gzfile);
     if (gz)
-	gzclose(gz);
+        gzclose(gz);
     lines = 0;
 }

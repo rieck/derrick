@@ -7,7 +7,7 @@
  */
 
 #include "config.h"
-#include "common.h" 
+#include "common.h"
 #include "utils.h"
 #include "derrick.h"
 
@@ -20,11 +20,11 @@ extern dmode_t dmode;
  * @param f Function name, e.g. __func__ macro
  * @param m Format string
  */
-void error_msg(char *p, const char *f, char *m, ...) 
+void error_msg(char *p, const char *f, char *m, ...)
 {
     va_list ap;
     char s[256] = { " " };
-    
+
     va_start(ap, m);
     vsnprintf(s, 256, m, ap);
     va_end(ap);
@@ -44,13 +44,13 @@ void error_msg(char *p, const char *f, char *m, ...)
  */
 void debug_msg(const char *f, char *m, ...)
 {
-        va_list ap;
+    va_list ap;
     char s[256] = { " " };
-    
+
     va_start(ap, m);
     vsnprintf(s, 256, m, ap);
     va_end(ap);
-    
+
     fprintf(stdout, "DBG[%s]: %s ", f, s);
 }
 
@@ -73,10 +73,11 @@ char *addr_to_str(struct tuple4 addr)
     int len = sizeof(buf);
 
     snprintf(ptr, len, "%s:%d ", inet_ntoa2(addr.saddr), addr.source);
-    len -= strlen(ptr); ptr += strlen(ptr); 
+    len -= strlen(ptr);
+    ptr += strlen(ptr);
     snprintf(ptr, len, "%s:%d", inet_ntoa2(addr.daddr), addr.dest);
 
-    return buf;    
+    return buf;
 }
 
 /**
@@ -88,15 +89,15 @@ char *addr_to_str(struct tuple4 addr)
  */
 char *payl_to_str(char *payl, int len)
 {
-    int i, j = 0;    
+    int i, j = 0;
     char *buf, hex[4];
-    
+
     buf = malloc(len * 3 + 1);
     if (!buf) {
         error("Could not allocate memory of %d bytes", len * 3 + 1);
         return "";
     }
-    
+
     for (i = 0; i < len; i++) {
         unsigned char c = payl[i];
 
@@ -125,6 +126,6 @@ char *payl_to_str(char *payl, int len)
         }
     }
     buf[j] = 0;
-    
+
     return buf;
 }

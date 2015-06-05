@@ -14,8 +14,9 @@
 #define PCAP_FILTER         "tcp or udp"
 
 /* Display mode */
-typedef enum {
-   URLENC, ASCII, HEX, 
+typedef enum
+{
+    URLENC, ASCII, HEX,
 } dmode_t;
 
 #endif

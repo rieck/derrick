@@ -22,9 +22,6 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-
-
-                         
 /* Checked headers */
 #ifdef HAVE_STDARG_H
 #include <stdarg.h>
@@ -52,16 +49,6 @@
 #endif
 #ifdef HAVE_NIDS_H
 #include <nids.h>
-#endif
-
-#ifdef HAVE_UTHASH_UTHASH_H
-#include <uthash/uthash.h>
-#else 
-#ifdef HAVE_UTHASH_H
-#include <uthash.h>
-#else
-#include "uthash.h"
-#endif
 #endif
 
 /* Convenience definitions */
