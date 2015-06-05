@@ -13,4 +13,9 @@
 #define MAX_LOG_LINES       100000
 #define PCAP_FILTER         "tcp or udp"
 
+/* Display mode */
+typedef enum {
+   URLENC, ASCII, HEX, 
+} dmode_t;
+
 #endif

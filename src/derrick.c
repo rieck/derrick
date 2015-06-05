@@ -18,8 +18,9 @@ int verbose = FALSE;
 int merge_tcp_payloads = FALSE;
 int max_tcp_bytes = MAX_TCP_BYTES;
 int max_log_lines = MAX_LOG_LINES;
+dmode_t dmode = URLENC;
 
-/* Static variables */
+/* Local variables */
 static char *read_file = NULL;
 static char *device = NULL;
 static char *log_file = NULL;

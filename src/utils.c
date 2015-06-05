@@ -9,6 +9,10 @@
 #include "config.h"
 #include "common.h" 
 #include "utils.h"
+#include "derrick.h"
+
+/* External variables */
+extern dmode_t dmode;
 
 /**
  * Print an error message. See macros in utils.h
@@ -95,12 +99,29 @@ char *payl_to_str(char *payl, int len)
     
     for (i = 0; i < len; i++) {
         unsigned char c = payl[i];
-        if (isprint(c) && c != '%') {
-            buf[j++] = c;
-        } else {
-            snprintf(hex, 4, "%%%.2x", c);
+
+        switch (dmode) {
+        case HEX:
+            snprintf(hex, 4, " %.2x", c);
             memcpy(buf + j, hex, 3);
             j += 3;
+            break;
+        case ASCII:
+            if (isprint(c) && c != '%') {
+                buf[j++] = c;
+            } else {
+                buf[j++] = '.';
+            }
+            break;
+        default:
+        case URLENC:
+            if (isprint(c) && c != '%') {
+                buf[j++] = c;
+            } else {
+                snprintf(hex, 4, "%%%.2x", c);
+                memcpy(buf + j, hex, 3);
+                j += 3;
+            }
         }
     }
     buf[j] = 0;
