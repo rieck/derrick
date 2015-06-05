@@ -90,7 +90,7 @@ char *addr_to_str(struct tuple4 addr)
 char *payl_to_str(char *payl, int len)
 {
     int i, j = 0;
-    char *buf, hex[4];
+    char *buf, hex[4], *ptr;
 
     buf = malloc(len * 3 + 1);
     if (!buf) {
@@ -104,8 +104,13 @@ char *payl_to_str(char *payl, int len)
         switch (dmode) {
         case HEX:
             snprintf(hex, 4, " %.2x", c);
-            memcpy(buf + j, hex, 3);
-            j += 3;
+            if (i == 0)
+                ptr = hex + 1;
+            else
+                ptr = hex;
+
+            memcpy(buf + j, ptr, strlen(ptr));
+            j += strlen(ptr);
             break;
         case ASCII:
             if (isprint(c) && c != '%') {
@@ -115,7 +120,7 @@ char *payl_to_str(char *payl, int len)
             }
             break;
         default:
-        case URLENC:
+        case ENCODED:
             if (isprint(c) && c != '%') {
                 buf[j++] = c;
             } else {

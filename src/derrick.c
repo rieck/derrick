@@ -18,7 +18,7 @@ int verbose = FALSE;
 int merge_tcp_payloads = FALSE;
 int max_tcp_bytes = MAX_TCP_BYTES;
 int max_log_lines = MAX_LOG_LINES;
-dmode_t dmode = URLENC;
+dmode_t dmode = ENCODED;
 
 /* Local variables */
 static char *read_file = NULL;
@@ -33,13 +33,15 @@ static void print_usage(void)
 {
     printf
         ("Usage: derrick [-mvVh] [-i interface] [-r file] [-f expression] [-l file]\n"
-         "               [-b bytes] [-t lines]\n" "Options:\n"
+         "               [-b bytes] [-d mode] [-t lines]\n"
+         "Options:\n"
          "  -i: Network interface to listen on.\n"
          "  -r: Read packets from tcpdump file.\n"
          "  -f: Filter expression for PCAP library. Default: \"%s\"\n"
          "  -l: Write output to compressed log file instead of stdout.\n"
          "  -b: Maximum number of bytes in TCP stream. Default: %u\n"
          "  -m: Merge assembled TCP payloads.\n"
+         "  -d: Display mode: encoded, ascii or hex\n"
          "  -t: Maximum number of log lines for rotation. Default: %u\n"
          "  -v: Increase verbosity.\n" "  -V: Print version and copyright.\n"
          "  -h: Print this help screen.\n", pcap_filter, max_tcp_bytes,
@@ -64,8 +66,20 @@ static void print_version()
 static void parse_options(int argc, char **argv)
 {
     int ch;
-    while ((ch = getopt(argc, argv, "mvVht:l:b:i:r:f:")) != -1) {
+    while ((ch = getopt(argc, argv, "mvVhd:t:l:b:i:r:f:")) != -1) {
         switch (ch) {
+        case 'd':
+            if (!strcasecmp(optarg, "ascii")) {
+                dmode = ASCII;
+            } else if (!strcasecmp(optarg, "encoded")) {
+                dmode = ENCODED;
+            } else if (!strcasecmp(optarg, "hex")) {
+                dmode = HEX;
+            } else {
+                warning("Unknown mode '%s'. Using 'encoded'.", optarg);
+                dmode = ENCODED;
+            }
+            break;
         case 't':
             max_log_lines = atoi(optarg);
             break;

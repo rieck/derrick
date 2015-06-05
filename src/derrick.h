@@ -16,7 +16,7 @@
 /* Display mode */
 typedef enum
 {
-    URLENC, ASCII, HEX,
+    ENCODED, ASCII, HEX
 } dmode_t;
 
 #endif
