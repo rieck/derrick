@@ -15,7 +15,7 @@
 extern int max_log_lines;
 
 /* Global variables */
-static gzFile *gz = NULL;
+static gzFile gz = NULL;
 static char *gzfile = NULL;
 static unsigned long lines = 0;
 static unsigned long rotation = 0;
