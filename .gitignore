@@ -9,6 +9,7 @@ aclocal.m4
 autom4te.cache/
 config.*
 configure
+compile
 depcomp
 derrick.komodoproject
 derrick.sublime-*
