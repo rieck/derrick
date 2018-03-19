@@ -33,16 +33,21 @@ Dependencies
     >= libnids-1.23
 
 Ubuntu packages: libz-dev libpcap-dev libnet1-dev libnids-dev
-(Development packages: automake, libtool)  
+(Development packages: automake, libtool)
+
+Centos packages: libpcap libnet libnids libpcap-devel libnet-devel libnids-devel
 
 Compilation & Installation
 --
 
-From GIT repository first run
+From GIT repository, run:
 
     $ ./bootstrap
+    $ make
+    $ make check
+    $ make install
 
-From tarball run
+From tarball, run:
 
     $ ./configure [options]
     $ make
