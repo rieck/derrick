@@ -43,6 +43,7 @@ Compilation & Installation
 From GIT repository, run:
 
     $ ./bootstrap
+    $ ./configure [options]
     $ make
     $ make check
     $ make install
